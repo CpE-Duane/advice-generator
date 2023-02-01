@@ -8,21 +8,22 @@ import loading from '../../images/loading-gif.gif'
 const Advice = () => {
 
     const [advice, setAdvice] = useState("")
+    const [adviceNumber, setAdviceNumber] = useState(0)
     const [loading, setLoading] = useState(false)
 
     let getAdvice = async () => {
         setLoading(true)
         let response = await AdviceService.getAdvice()
-        console.log(response)
         setLoading(false)
         setAdvice(response.data.slip.advice)
+        setAdviceNumber(response.data.slip.id)
     }
 
     return (
         <div>
             <div className="card">
                 <p className='advice-number'>
-                    ADVICE #117
+                    {adviceNumber > 0 && `ADVICE #${adviceNumber}`}
                 </p>
                 {
                     advice.length === 0 && !loading
